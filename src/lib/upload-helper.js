@@ -74,7 +74,7 @@ class UploadHelper {
     fileData.error.upload = errorText;
   }
 
-  upload(url, headers, filesData, createFormData, progressFn, configureFn){
+  upload(url, headers, filesData, createFormData, progressFn, configureFn, fieldName){
     var self = this;
     progressFn = progressFn || function(){};
     var promises = [];
@@ -92,8 +92,10 @@ class UploadHelper {
         formData = createFormData(fileData);
       }
       else {
-        formData = new FormData();
-        formData.append('file', fileData.file);
+        if(typeof fieldName !== 'string'){
+            fieldName = 'file';
+        }
+        formData.append(fieldName, fileData.file);
       }
       (function(fileData){
         var promise = self.doUpload(url, headers, formData, function(progressEvent) {

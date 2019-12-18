@@ -7,7 +7,7 @@ import uploader from '../lib/upload-helper';
 var dragCounter = 0;
 
 export default {
-  props: ['uploadUrl', 'uploadHeaders', 'multiple', 'deletable', 'editable', 'read', 'accept', 'value', 'progress', 'helpText', 'maxSize', 'maxFiles', 'errorText', 'meta', 'compact', 'thumbnailSize', 'theme', 'disabled'],
+  props: ['uploadUrl', 'uploadHeaders', 'multiple', 'deletable', 'editable', 'read', 'accept', 'value', 'progress', 'helpText', 'maxSize', 'maxFiles', 'errorText', 'meta', 'compact', 'thumbnailSize', 'theme', 'disabled', 'name', 'id'],
   components: {
     VueFileIcon,
     VueFilePreview
@@ -56,6 +56,18 @@ export default {
         return this.read === 'true';
       }
       return !!this.read;
+    },
+    inputName(){
+      if(typeof this.name == 'string'){
+        return this.name;
+      }
+      return 'file';
+    },
+    inputId(){
+      if(typeof this.id == 'string'){
+        return this.id;
+      }
+      return 'file';
     }
   },
   methods: {
@@ -93,7 +105,7 @@ export default {
       }
       return uploader.upload(url, headers, validFilesData, createFormData, (overallProgress)=> {
         this.overallProgress = overallProgress;
-      });
+      }, this.inputName);
     },
     deleteUpload(url, headers, fileData, uploadData){
       if(this.filesData.length < 1){

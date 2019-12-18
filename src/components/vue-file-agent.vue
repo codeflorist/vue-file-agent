@@ -32,7 +32,7 @@
       </slot>
     </template>
   </transition-group>
-    <input title="" :disabled="disabled === true || (hasMultiple && !canAddMore)" ref="fileInput" type="file" v-bind:multiple="hasMultiple" class="file-input" v-on:change="filesChanged" v-bind:accept="accept || '*'">
+    <input title="" :name="inputName" :id="inputId" :disabled="disabled === true || (hasMultiple && !canAddMore)" ref="fileInput" type="file" v-bind:multiple="hasMultiple" class="file-input" v-on:change="filesChanged" v-bind:accept="accept || '*'">
 
     <slot name="after-inner"></slot>
   </div>
